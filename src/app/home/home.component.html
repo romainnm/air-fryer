@@ -1,0 +1,12 @@
+<ng-container *ngIf="cookingCards$ | async as cookingCards">
+    <div *ngFor="let card of cookingCards">
+        <h2>{{ card.cookingCardName }}</h2>
+        <ul>
+            <li>Time: {{ card.cookingTime }}</li>
+            <li>Temperature: {{ card.cookingTemperature }}</li>
+            <li>Rack: {{ card.rack }}</li>
+            <li>Mode: {{ card.mode }}</li>
+            <li>Number basket: {{ card.numbBasket }}</li>
+        </ul>
+    </div>
+</ng-container>
