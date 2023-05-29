@@ -42,6 +42,12 @@ module.exports = function (config) {
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    customLaunch: {
+      ChromeHeadlessNoSandbox: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox', '--disable-gpu']
+      }
+    }
   });
 };
