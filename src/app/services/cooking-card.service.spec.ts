@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CookingCardService } from './cooking-card.service';
 import { HttpClientTestingModule, HttpTestingController  } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { cookingCardStub } from 'src/stubs/cookingCardStub';
 
 describe('CookingCardService', () => {
@@ -64,4 +64,38 @@ describe('CookingCardService', () => {
 
     req.flush(testData);
   })
+
+  it('should handle HTTP error for getCookingCards', () => {
+    service.getCookingCards().subscribe(
+      () => {},
+      (error: any) => {
+        expect(error).toEqual(error);
+      }
+    );
+    httpMock.expectOne({
+      method: 'GET',
+    }).flush("", { status: 404, statusText: "Not Found" });
+  });
+
+  it('should handle HTTP error for add cards', () => {
+    const mockCard = {
+      name: 'test',
+      time: 33,
+      temperature: 444,
+      rack: false,
+      mode: 'Air Fryer',
+      numbBasket: 1,
+    }
+
+    service.addCookingCard(mockCard).subscribe(
+      () => {},
+      (error: any) => {
+        expect(error).toEqual(error);
+      }
+    );
+    httpMock.expectOne({
+      method: 'POST',
+    }).flush("", { status: 404, statusText: "Not Found" });
+  });
+
 });
