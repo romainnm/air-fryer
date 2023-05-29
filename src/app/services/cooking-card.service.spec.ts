@@ -46,8 +46,16 @@ describe('CookingCardService', () => {
 
   it('should add new card', () => {
     const testData = cookingCardStub;
+    const mockCard = {
+      name: 'test',
+      time: 33,
+      temperature: 444,
+      rack: false,
+      mode: 'Air Fryer',
+      numbBasket: 1,
+  }
 
-    service.addCookingCard().subscribe()
+    service.addCookingCard(mockCard).subscribe()
 
     const req = httpMock.expectOne(request => 
       request.method === 'POST' &&
