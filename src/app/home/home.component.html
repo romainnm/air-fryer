@@ -1,0 +1,12 @@
+<ng-container *ngIf="cookingCards$ | async as cookingCards">
+    <div *ngFor="let card of cookingCards" class="cooking-card">
+        <h2 (click)="toggleShowCardDetails(card.id, card.showList)">{{ card.name }}</h2>
+        <ul [ngClass]="card.showList ? 'show-card-details' : 'hide-card-details' ">
+            <li>Time: {{ card.time }}</li>
+            <li>Temperature: {{ card.temperature }}</li>
+            <li>Rack: {{ card.rack }}</li>
+            <li>Mode: {{ card.mode }}</li>
+            <li>Number basket: {{ card.numbBasket }}</li>
+        </ul>
+    </div>
+</ng-container>
