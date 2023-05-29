@@ -1,9 +1,10 @@
 export interface ICookingCard {
-    cookingCardId: number,
-    cookingCardName: string,
-    cookingTime: number,
-    cookingTemperature: number,
+    id?: number,
+    name: string,
+    time: number,
+    temperature: number,
     rack: boolean,
     mode: string,
-    numbBasket: number
+    numbBasket: number,
+    showList?: boolean
 }
