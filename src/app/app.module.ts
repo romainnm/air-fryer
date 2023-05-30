@@ -6,15 +6,23 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http'
 
+const modules = [
+  HttpClientModule
+]
+
+const components = [
+  HomeComponent
+]
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    HomeComponent
+    ...modules,
+    ...components
   ],
   providers: [],
   bootstrap: [AppComponent]
