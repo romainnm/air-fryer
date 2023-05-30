@@ -1,25 +1,41 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CookingCardService } from '../services/cooking-card.service';
-import { map } from 'rxjs';
+import { combineLatest, map, of, take } from 'rxjs';
 import { ICookingCard } from '../interfaces/cooking-card.interface';
+import { FormBuilder } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CookingCardComponent } from '../shared/cooking-card/cooking-card.component'
 
 @Component({
     selector: 'app-home',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, CookingCardComponent],
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
     cookingCards$ = this.getCookingCards();
     showCardDetails = false;
+    cookingCardForm: any;
+    addCookingCardAction$ = this.cookingCardService.addCookingCardAction$
 
     constructor(
-        public cookingCardService: CookingCardService
+        public cookingCardService: CookingCardService,
+        private fb: FormBuilder,
     ) { };
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.cookingCardForm = this.fb.group({
+            name: [''],
+            time: [''],
+            temperature: [''],
+            rack: [''],
+            mode: [''],
+            numBasket: [''],
+        })
+    }
 
     getCookingCards() {
         return this.cookingCardService.getCookingCards().pipe(
@@ -41,5 +57,17 @@ export class HomeComponent {
                 })
             )
         );
+    }
+
+    onSubmit() {
+        const mockCard = this.cookingCardForm.value
+        if (mockCard) {
+            this.cookingCardService.addCookingCard(mockCard).pipe(take(1)).subscribe()
+        }
+
+        this.cookingCards$ = this.getCookingCards()
+
+        this.cookingCards$.pipe(take(1)).subscribe()
+       
     }
 }
