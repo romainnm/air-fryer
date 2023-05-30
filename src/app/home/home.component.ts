@@ -19,7 +19,6 @@ export class HomeComponent {
     cookingCards$ = this.getCookingCards();
     showCardDetails = false;
     cookingCardForm: any;
-    addCookingCardAction$ = this.cookingCardService.addCookingCardAction$
 
     constructor(
         public cookingCardService: CookingCardService,
