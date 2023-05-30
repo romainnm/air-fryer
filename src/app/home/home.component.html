@@ -1,12 +1,24 @@
-<ng-container *ngIf="cookingCards$ | async as cookingCards">
-    <div *ngFor="let card of cookingCards" class="cooking-card">
-        <h2 (click)="toggleShowCardDetails(card.id, card.showList)">{{ card.name }}</h2>
-        <ul [ngClass]="card.showList ? 'show-card-details' : 'hide-card-details' ">
-            <li>Time: {{ card.time }}</li>
-            <li>Temperature: {{ card.temperature }}</li>
-            <li>Rack: {{ card.rack }}</li>
-            <li>Mode: {{ card.mode }}</li>
-            <li>Number basket: {{ card.numbBasket }}</li>
-        </ul>
-    </div>
-</ng-container>
+<form [formGroup]="cookingCardForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="name" placeholder="name"><br>
+    <input type="text" formControlName="time" placeholder="time"><br>
+    <input type="text" formControlName="temperature" placeholder="temperature"><br>
+    
+    <select name="rack" id="rack" formControlName="rack" placeholder="rack">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+    </select><br>
+    <input type="text" formControlName="mode" placeholder="mode"><br>
+  
+    <select name="numBasket" id="numBasket" formControlName="numBasket" placeholder="number of basket">
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select><br>
+    <input type="submit" value="Submit">
+</form>
+
+
+<app-cooking-card
+    [cookingCards$]="cookingCards$"
+>  
+</app-cooking-card>
+
